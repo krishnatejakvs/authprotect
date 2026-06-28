@@ -1,0 +1,32 @@
+schema: spec-driven
+
+context: |
+  # Project Description
+  Product Trust Platform (AuthPrint AI) - A full-stack SaaS application designed to authenticate product packaging and combat counterfeiting.
+
+  # Tech Stack
+  ## Backend
+  - Framework: FastAPI (Python 3)
+  - Database: PostgreSQL (Relational)
+  - ORM & Migrations: SQLAlchemy & Alembic
+  - Architecture: Modular Monolith (ADR-001), Domain-Driven Design (ADR-003)
+
+  ## Frontend
+  - Framework: React (Single-Page Application using Vite)
+  - Styling/UI: TailwindCSS, ShadCN UI
+  - State Management: React Context / Zustand
+  - Routing: React Router
+
+  # General Conventions
+  - We use standard RESTful API conventions with JSON.
+  - Core business vocabulary (e.g., Organization, Product Identity, Trust Event) strictly follows the Product Domain Model.
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
