@@ -43,7 +43,7 @@ def generate_batch_identities_task(batch_id: str):
             # Create a dummy image for testing if it doesn't exist
             import cv2
             import numpy as np
-            dummy = np.zeros((100, 100, 3), dtype=np.uint8)
+            dummy = np.zeros((256, 256, 3), dtype=np.uint8)
             cv2.imwrite(base_image, dummy)
         
         for serial_number in range(1, batch.quantity + 1):
