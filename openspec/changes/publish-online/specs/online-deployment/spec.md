@@ -1,6 +1,7 @@
 ## ADDED Requirements
 
 ### Requirement: Cloud Infrastructure Provisioning
+The platform MUST be deployable to cloud infrastructure to be accessible over the internet.
 
 #### Scenario: Platform deployment environments
 - **GIVEN** the application needs to run outside of localhost
@@ -10,6 +11,7 @@
 - **AND** managed instances of PostgreSQL and Redis are accessible to the backend
 
 ### Requirement: Environment Variable Configuration
+The application MUST securely read configuration from environment variables for production environments.
 
 #### Scenario: Production API URL configuration
 - **GIVEN** the frontend application is deployed
@@ -23,6 +25,7 @@
 - **AND** they must connect to Redis using the `REDIS_URL` or `CELERY_BROKER_URL` environment variable
 
 ### Requirement: Cross-Origin Resource Sharing (CORS)
+The backend API MUST be configured to only allow requests from authorized frontend domains.
 
 #### Scenario: Frontend to Backend communication
 - **GIVEN** the backend is running on a different domain than the frontend
