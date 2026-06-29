@@ -19,6 +19,7 @@ allowed_origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:3000",
+    "https://authprotectaikt.vercel.app",
 ]
 if frontend_url not in allowed_origins:
     allowed_origins.append(frontend_url)
