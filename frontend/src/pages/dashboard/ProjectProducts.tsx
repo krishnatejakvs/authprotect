@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useOrganization } from '@/contexts/OrganizationContext';
 import { api } from '@/lib/api';
 import { Button } from '@/components/ui/button';
+import { API_URL } from '@/lib/api';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -283,9 +284,9 @@ export function ProjectProducts() {
                       </TableCell>
                       <TableCell>
                         {identity.authentication_token?.image_url ? (
-                          <a href={`http://localhost:8000${identity.authentication_token.image_url}`} target="_blank" rel="noreferrer">
+                          <a href={`${API_URL}${identity.authentication_token.image_url}`} target="_blank" rel="noreferrer">
                             <img 
-                              src={`http://localhost:8000${identity.authentication_token.image_url}`} 
+                              src={`${API_URL}${identity.authentication_token.image_url}`} 
                               alt={`Product ${identity.serial_number}`} 
                               className="w-12 h-12 object-cover rounded border hover:scale-150 transition-transform cursor-pointer"
                             />

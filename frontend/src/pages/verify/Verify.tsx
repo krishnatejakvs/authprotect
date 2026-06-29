@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { AlertCircle, CheckCircle2, HelpCircle, Upload, Loader2 } from 'lucide-react';
+import { API_URL } from '@/lib/api';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface ProductDetails {
@@ -49,7 +50,7 @@ export function Verify() {
     formData.append('file', file);
     
     try {
-      const response = await fetch('http://localhost:8000/api/v1/verifications/verify', {
+      const response = await fetch(`${API_URL}/api/v1/verifications/verify`, {
         method: 'POST',
         body: formData,
       });

@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
+import { API_URL } from '@/lib/api';
 
 interface VerificationHistoryItem {
   id: string;
@@ -26,7 +27,7 @@ export function VerificationHistory() {
   const fetchHistory = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8000/api/v1/verifications/verifications', {
+      const response = await fetch(`${API_URL}/api/v1/verifications/verifications`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
         }
