@@ -10,7 +10,9 @@ import {
   Shield, 
   LogOut,
   MapPin,
-  FolderKanban
+  FolderKanban,
+  Package,
+  CheckCircle
 } from 'lucide-react';
 
 export function DashboardLayout() {
@@ -42,6 +44,9 @@ export function DashboardLayout() {
     { name: 'Organization', path: '/dashboard', icon: Building2 },
     { name: 'Sites', path: '/dashboard/sites', icon: MapPin },
     { name: 'Projects', path: '/dashboard/projects', icon: FolderKanban },
+    { name: 'Products', path: '/dashboard/products', icon: Package },
+    { name: 'Verify Product', path: '/dashboard/verify', icon: Shield },
+    { name: 'Verification History', path: '/dashboard/verifications', icon: CheckCircle },
     { name: 'Users & Invites', path: '/dashboard/users', icon: Users, reqAdmin: true },
     { name: 'Settings', path: '/dashboard/settings', icon: Settings, reqAdmin: true },
   ];

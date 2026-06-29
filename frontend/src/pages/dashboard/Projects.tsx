@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useOrganization } from '@/contexts/OrganizationContext';
-import { api } from '@/lib/api';
+import { api, API_URL } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -142,7 +143,7 @@ export function Projects() {
                 <TableRow key={project.id} className="hover:bg-muted/50 transition-colors">
                   <TableCell className="pl-6">
                     {project.cover_image_url ? (
-                      <img src={`http://localhost:8000${project.cover_image_url}`} alt={project.name} className="w-10 h-10 object-cover rounded-md border border-border" />
+                      <img src={`${API_URL}${project.cover_image_url}`} alt={project.name} className="w-10 h-10 object-cover rounded-md border border-border" />
                     ) : (
                       <div className="w-10 h-10 bg-muted rounded-md flex items-center justify-center border border-border">
                         <FolderKanban className="w-4 h-4 text-muted-foreground" />
@@ -165,7 +166,10 @@ export function Projects() {
                       <span className="capitalize">{project.status}</span>
                     </span>
                   </TableCell>
-                  <TableCell className="text-right pr-6">
+                  <TableCell className="text-right pr-6 space-x-2">
+                    <Button variant="outline" size="sm" asChild>
+                      <Link to={`/dashboard/projects/${project.id}/products`}>Products</Link>
+                    </Button>
                     <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
                       <Settings2 className="w-4 h-4" />
                     </Button>

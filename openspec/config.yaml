@@ -1,4 +1,4 @@
-schema: spec-driven
+schema: intent-driven
 
 context: |
   # Project Description
@@ -21,12 +21,12 @@ context: |
   - We use standard RESTful API conventions with JSON.
   - Core business vocabulary (e.g., Organization, Product Identity, Trust Event) strictly follows the Product Domain Model.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  proposal:
+    - Must use grill-me skill
+  design:
+    - Must use c4-diagrams skill
+  adr:
+    - Must use architectural-decision-records skill
+  spec:
+    - Must use gherkin-authoring skill

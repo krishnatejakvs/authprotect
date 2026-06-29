@@ -30,13 +30,18 @@ def get_user_organizations(
             results.append(org_dict)
     return results
 
+import secrets
+
 @router.post("/", response_model=OrganizationResponse, status_code=status.HTTP_201_CREATED)
 def create_organization(
     org_in: OrganizationCreate,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    org = Organization(name=org_in.name)
+    org = Organization(
+        name=org_in.name,
+        encryption_key=secrets.token_urlsafe(32)
+    )
     db.add(org)
     db.commit()
     db.refresh(org)
