@@ -15,12 +15,12 @@
 ## 3. Frontend Deployment
 
 - [x] 3.1 Update frontend to consume `VITE_API_BASE_URL` environment variable for API requests
-- [ ] 3.2 Connect Vercel/Netlify to the GitHub repository
-- [ ] 3.3 Configure build settings (`npm run build`, output dir `dist`) and inject `VITE_API_BASE_URL` pointing to deployed backend
-- [ ] 3.4 Deploy frontend and verify communication with the backend
+- [x] 3.2 Connect Vercel/Netlify to the GitHub repository
+- [x] 3.3 Configure build settings (`npm run build`, output dir `dist`) and inject `VITE_API_BASE_URL` pointing to deployed backend
+- [x] 3.4 Deploy frontend and verify communication with the backend
 
 ## 4. Verification
 
-- [ ] 4.1 Test user registration/login flow on the production URL
-- [ ] 4.2 Test a background task trigger to ensure Celery and Redis are functioning correctly
-- [ ] 4.3 Run `openspec validate publish-online --type change --strict` to ensure change artifacts are valid
+- [x] 4.1 Test user registration/login flow on the production URL
+- [x] 4.2 Test a background task trigger to ensure Celery and Redis are functioning correctly
+- [x] 4.3 Run `openspec validate publish-online --type change --strict` to ensure change artifacts are valid
