@@ -9,5 +9,7 @@ from .invitation import Invitation
 from .batch import Batch
 from .product_identity import ProductIdentity
 from .authentication_token import AuthenticationToken
+from .verification_session import VerificationSession
+from .verification_result import VerificationResult
 
 # Import all models here so Alembic can discover them
