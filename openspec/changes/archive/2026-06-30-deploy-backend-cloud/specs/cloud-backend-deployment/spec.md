@@ -1,8 +1,8 @@
 ## ADDED Requirements
 
 ### Requirement: Application configuration via environment variables
+The backend MUST dynamically configure all connections from environment variables provided by the PaaS environment.
 Feature: cloud-backend-deployment
-Rule: The backend MUST dynamically configure all connections from environment variables provided by the PaaS environment.
 
 #### Scenario: Connecting to the production database
 - **GIVEN** the FastAPI application is starting in a cloud PaaS environment
