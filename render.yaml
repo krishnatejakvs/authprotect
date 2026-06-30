@@ -12,16 +12,4 @@ services:
         sync: false
       - key: FRONTEND_URL
         sync: false
-  
-  - type: worker
-    name: authprotect-celery
-    env: docker
-    region: singapore
-    plan: free
-    dockerfilePath: backend/Dockerfile
-    dockerCommand: celery -A app.worker.celery_app worker --loglevel=info
-    envVars:
-      - key: DATABASE_URL
-        sync: false
-      - key: REDIS_URL
-        sync: false
+
