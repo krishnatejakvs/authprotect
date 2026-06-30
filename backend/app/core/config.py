@@ -10,11 +10,17 @@ class Settings(BaseSettings):
     
     @property
     def CELERY_BROKER_URL(self) -> str:
-        return self.REDIS_URL
+        url = self.REDIS_URL
+        if url.startswith("rediss://") and "ssl_cert_reqs" not in url:
+            url += "?ssl_cert_reqs=CERT_NONE"
+        return url
         
     @property
     def CELERY_RESULT_BACKEND(self) -> str:
-        return self.REDIS_URL
+        url = self.REDIS_URL
+        if url.startswith("rediss://") and "ssl_cert_reqs" not in url:
+            url += "?ssl_cert_reqs=CERT_NONE"
+        return url
 
     class Config:
         env_file = ".env"
