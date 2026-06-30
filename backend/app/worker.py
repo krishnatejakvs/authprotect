@@ -85,12 +85,12 @@ def generate_batch_identities_task(batch_id: str):
                 
                 # Upload to Supabase Storage
                 unique_filename = f"products/{batch.id}_{serial_number}_{hmac_token}.jpg"
-                with open(output_image_path, "rb") as f:
-                    supabase.storage.from_(BUCKET_NAME).upload(
-                        path=unique_filename,
-                        file=f.read(),
-                        file_options={"content-type": "image/jpeg"}
-                    )
+                # Upload to Supabase Storage
+                supabase.storage.from_(BUCKET_NAME).upload(
+                    path=unique_filename,
+                    file=output_image_path,
+                    file_options={"content-type": "image/jpeg"}
+                )
                 
                 final_url = supabase.storage.from_(BUCKET_NAME).get_public_url(unique_filename)
                 

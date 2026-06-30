@@ -40,15 +40,16 @@ async def verify_product(
         
     # Upload to Supabase Storage
     try:
+        # Upload to Supabase Storage
         from app.services.storage import supabase, BUCKET_NAME
+        
         unique_filename = f"verifications/{session.id}{file_ext}"
         
-        with open(temp_file_path, "rb") as f:
-            supabase.storage.from_(BUCKET_NAME).upload(
-                path=unique_filename,
-                file=f.read(),
-                file_options={"content-type": file.content_type}
-            )
+        supabase.storage.from_(BUCKET_NAME).upload(
+            file=temp_file_path,
+            path=unique_filename,
+            file_options={"content-type": file.content_type}
+        )
             
         session.image_url = supabase.storage.from_(BUCKET_NAME).get_public_url(unique_filename)
     except Exception as e:

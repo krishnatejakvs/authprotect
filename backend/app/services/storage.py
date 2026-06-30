@@ -17,12 +17,10 @@ class StorageService:
         ext = os.path.splitext(file.filename)[1]
         unique_filename = f"projects/{project_id}_{uuid.uuid4().hex}{ext}"
         
-        file_bytes = await file.read()
-        
         # Upload to Supabase Storage
         supabase.storage.from_(BUCKET_NAME).upload(
             path=unique_filename,
-            file=file_bytes,
+            file=file.file,
             file_options={"content-type": file.content_type}
         )
         
