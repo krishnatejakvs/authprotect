@@ -4,7 +4,6 @@ services:
     env: docker
     region: singapore
     plan: free
-    dockerfilePath: backend/Dockerfile
     envVars:
       - key: DATABASE_URL
         sync: false

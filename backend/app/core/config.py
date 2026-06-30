@@ -6,9 +6,21 @@ class Settings(BaseSettings):
     # Default to a local postgres instance
     DATABASE_URL: PostgresDsn = "postgresql://postgres:postgres@localhost:5432/authprotect"
     
-    # Celery settings
-    CELERY_BROKER_URL: str = "redis://localhost:6379/0"
-    CELERY_RESULT_BACKEND: str = "redis://localhost:6379/0"
+    REDIS_URL: str = "redis://localhost:6379/0"
+    
+    @property
+    def CELERY_BROKER_URL(self) -> str:
+        url = self.REDIS_URL
+        if url.startswith("rediss://") and "ssl_cert_reqs" not in url:
+            url += "?ssl_cert_reqs=CERT_NONE"
+        return url
+        
+    @property
+    def CELERY_RESULT_BACKEND(self) -> str:
+        url = self.REDIS_URL
+        if url.startswith("rediss://") and "ssl_cert_reqs" not in url:
+            url += "?ssl_cert_reqs=CERT_NONE"
+        return url
 
     class Config:
         env_file = ".env"
