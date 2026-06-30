@@ -1,27 +1,28 @@
 import os
-import shutil
 import uuid
 from fastapi import UploadFile
+from supabase import create_client, Client
+from app.core.config import settings
 
-UPLOAD_DIR = "uploads"
-PROJECTS_UPLOAD_DIR = os.path.join(UPLOAD_DIR, "projects")
-
-# Ensure directories exist
-os.makedirs(PROJECTS_UPLOAD_DIR, exist_ok=True)
+# Initialize Supabase client
+supabase: Client = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
+BUCKET_NAME = "uploads"
 
 class StorageService:
     @staticmethod
     async def save_project_cover_image(file: UploadFile, project_id: str) -> str:
         """
-        Saves a project cover image and returns the relative URL to access it.
+        Saves a project cover image to Supabase Storage and returns the public URL.
         """
-        # Generate a unique filename to prevent collisions
         ext = os.path.splitext(file.filename)[1]
-        unique_filename = f"{project_id}_{uuid.uuid4().hex}{ext}"
-        file_path = os.path.join(PROJECTS_UPLOAD_DIR, unique_filename)
+        unique_filename = f"projects/{project_id}_{uuid.uuid4().hex}{ext}"
         
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
-            
-        # The URL will be served via FastAPI's StaticFiles mounted at /uploads
-        return f"/uploads/projects/{unique_filename}"
+        # Upload to Supabase Storage
+        supabase.storage.from_(BUCKET_NAME).upload(
+            path=unique_filename,
+            file=file.file,
+            file_options={"content-type": file.content_type}
+        )
+        
+        # Return the public URL
+        return supabase.storage.from_(BUCKET_NAME).get_public_url(unique_filename)

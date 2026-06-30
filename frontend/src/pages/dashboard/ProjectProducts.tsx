@@ -284,9 +284,9 @@ export function ProjectProducts() {
                       </TableCell>
                       <TableCell>
                         {identity.authentication_token?.image_url ? (
-                          <a href={`${API_URL}${identity.authentication_token.image_url}`} target="_blank" rel="noreferrer">
+                          <a href={identity.authentication_token.image_url.startsWith('http') ? identity.authentication_token.image_url : `${API_URL}${identity.authentication_token.image_url}`} target="_blank" rel="noreferrer">
                             <img 
-                              src={`${API_URL}${identity.authentication_token.image_url}`} 
+                              src={identity.authentication_token.image_url.startsWith('http') ? identity.authentication_token.image_url : `${API_URL}${identity.authentication_token.image_url}`} 
                               alt={`Product ${identity.serial_number}`} 
                               className="w-12 h-12 object-cover rounded border hover:scale-150 transition-transform cursor-pointer"
                             />

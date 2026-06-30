@@ -143,7 +143,7 @@ export function Projects() {
                 <TableRow key={project.id} className="hover:bg-muted/50 transition-colors">
                   <TableCell className="pl-6">
                     {project.cover_image_url ? (
-                      <img src={`${API_URL}${project.cover_image_url}`} alt={project.name} className="w-10 h-10 object-cover rounded-md border border-border" />
+                      <img src={project.cover_image_url.startsWith('http') ? project.cover_image_url : `${API_URL}${project.cover_image_url}`} alt={project.name} className="w-10 h-10 object-cover rounded-md border border-border" />
                     ) : (
                       <div className="w-10 h-10 bg-muted rounded-md flex items-center justify-center border border-border">
                         <FolderKanban className="w-4 h-4 text-muted-foreground" />
