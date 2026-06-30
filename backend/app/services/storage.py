@@ -17,12 +17,23 @@ class StorageService:
         ext = os.path.splitext(file.filename)[1]
         unique_filename = f"projects/{project_id}_{uuid.uuid4().hex}{ext}"
         
-        # Upload to Supabase Storage
-        supabase.storage.from_(BUCKET_NAME).upload(
-            path=unique_filename,
-            file=file.file,
-            file_options={"content-type": file.content_type}
-        )
+        import tempfile
+        
+        # Write to a temporary file because supabase-py requires a file path string
+        with tempfile.NamedTemporaryFile(delete=False, suffix=ext) as tf:
+            content = await file.read()
+            tf.write(content)
+            temp_path = tf.name
+            
+        try:
+            # Upload to Supabase Storage
+            supabase.storage.from_(BUCKET_NAME).upload(
+                path=unique_filename,
+                file=temp_path,
+                file_options={"content-type": file.content_type}
+            )
+        finally:
+            os.remove(temp_path)
         
         # Return the public URL
         return supabase.storage.from_(BUCKET_NAME).get_public_url(unique_filename)
