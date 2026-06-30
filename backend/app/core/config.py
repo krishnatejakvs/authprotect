@@ -8,6 +8,11 @@ class Settings(BaseSettings):
     
     REDIS_URL: str = "redis://localhost:6379/0"
     
+    SUPABASE_URL: str = ""
+    SUPABASE_KEY: str = ""
+    
+    SECRET_KEY: str
+    
     @property
     def CELERY_BROKER_URL(self) -> str:
         url = self.REDIS_URL
@@ -24,5 +29,6 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+        extra = "ignore"
 
 settings = Settings()

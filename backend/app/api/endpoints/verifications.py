@@ -15,8 +15,6 @@ from app.utils.steganography import extract_hmac_dct
 
 router = APIRouter()
 
-UPLOAD_DIR = "uploads/verifications"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @router.post("/verify")
 async def verify_product(
@@ -33,15 +31,30 @@ async def verify_product(
     db.commit()
     db.refresh(session)
     
-    # 2. Save uploaded file temporarily
+    # 2. Save uploaded file temporarily for OpenCV processing
     file_ext = os.path.splitext(file.filename)[1] if file.filename else ".jpg"
-    temp_file_path = os.path.join(UPLOAD_DIR, f"{session.id}{file_ext}")
+    temp_file_path = f"/tmp/{session.id}{file_ext}"
     
     with open(temp_file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
         
-    # Update session with image url (local path for now)
-    session.image_url = f"/uploads/verifications/{session.id}{file_ext}"
+    # Upload to Supabase Storage
+    try:
+        from app.services.storage import supabase, BUCKET_NAME
+        unique_filename = f"verifications/{session.id}{file_ext}"
+        
+        with open(temp_file_path, "rb") as f:
+            supabase.storage.from_(BUCKET_NAME).upload(
+                path=unique_filename,
+                file=f.read(),
+                file_options={"content-type": file.content_type}
+            )
+            
+        session.image_url = supabase.storage.from_(BUCKET_NAME).get_public_url(unique_filename)
+    except Exception as e:
+        print(f"Failed to upload to Supabase: {e}")
+        session.image_url = None
+        
     db.commit()
     
     # 3. Extract hash using reverse DCT
