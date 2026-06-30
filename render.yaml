@@ -2,7 +2,7 @@ services:
   - type: web
     name: authprotect-api
     env: docker
-    region: ohio
+    region: singapore
     plan: free
     dockerContext: ./backend
     dockerfilePath: ./backend/Dockerfile
@@ -17,7 +17,7 @@ services:
   - type: worker
     name: authprotect-celery
     env: docker
-    region: ohio
+    region: singapore
     plan: free
     dockerContext: ./backend
     dockerfilePath: ./backend/Dockerfile
